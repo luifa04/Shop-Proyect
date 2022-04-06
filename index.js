@@ -1,1 +1,17 @@
-console.log("hola mundoi")
+const express = require('express')
+const routerApi = require('./routers');
+
+const app = express()
+const port = 3000
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+routerApi(app);
+
