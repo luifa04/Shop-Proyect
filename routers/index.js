@@ -1,5 +1,5 @@
 
-const products = require('./products');
+const products = require('./products.router');
 
 function routerApi(app){
   app.use('/products', products);
