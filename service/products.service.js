@@ -1,12 +1,14 @@
 const faker = require('faker')
 const boom = require('@hapi/boom')
+const { Op } = require("sequelize");
+
+const getConnection= require('./../libs/postgres')
+const {models} = require('./../libs/sequelize')
+
 
 class productsService {
 
-  constructor(){
-    this.products= [],
-    this.generate()
-  }
+  constructor(){}
 
   generate(){
     const limit =  100;
@@ -23,55 +25,47 @@ class productsService {
   }
 
   async create(data){
-    const newProduct = {
-      id: faker.datatype.uuid(),
-      ...data
-    }
-    this.products.push(newProduct);
+    const newProduct = await models.Product.create(data);
     return newProduct;
   }
 
   async update(id, changes){
-    const index = this.products.findIndex(item => item.id === id );
-    if(index === -1){
-      throw boom.notFound('product not found');
-    }
-    const producToChange = this.products[index];
-    this.products[index]= {
-      ...this.products[index],
-      ...changes
-    }
-    return this.products[index];
+    const product = await this.findOne(id);
+    const rta = await product.update(changes);
+    return rta;
   }
 
-  async find(){
-    // simula una consulta a la base de datos, simula el asincronismo
-    // return new Promise((resolve, reject) =>{
-    //   setTimeout(()=>{
-    //     resolve(this.products)
-    //   },5000)
-    // })
-    return this.products;
+  async find(query){
+    const options = {
+      include: 'categorie',
+      where: {}
+    }
+    const {limit , offset, price_min, price_max} = query;
+    if(limit && offset){
+      options.limit = limit;
+      options.offset = offset;
+    }
+    if(price_min && price_max){
+      options.where.price ={
+        [Op.between]:[price_min, price_max]
+      }
+    }
+    const rta = await models.Product.findAll(options);
+    return rta;
   }
 
   async findOne(id){
-    const product = this.products.find(item => item.id === id );
+    const product = await models.Product.findByPk(id);
     if(!product){
-      throw boom.notFound('product not found');
-    }
-    if(product.isBlock){
-      throw boom.conflict('this product is block');
+      throw boom.notFound("Product not found");
     }
     return product;
   }
 
   async delete(id){
-    const index = this.products.findIndex(item => item.id === id );
-    if(index === -1){
-      throw boom.notFound('product not found');
-    }
-    this.products.splice(index,1);
-    return `deleted product with id=${id}`;
+    const product = await this.findOne(id);
+    await product.destroy();
+    return {id};
   }
 }
 

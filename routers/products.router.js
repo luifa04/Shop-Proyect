@@ -1,15 +1,23 @@
 const express = require('express')
 const productsService= require('./../service/products.service')
 const {validatorhandler} = require('./../middlewares/validator.handler')
-const {createProductSchema, updateProductSchema, getProductSchema} = require('./../schemas/Product.schema')
+const {queryProductSchema,createProductSchema, updateProductSchema, getProductSchema} = require('./../schemas/Product.schema')
 
 const router = express.Router();
 const service = new productsService();
 
-router.get('/',async (req,res) =>{
- const products = await service.find();
+router.get('/',
+  validatorhandler(queryProductSchema,'query')
+  ,async (req,res,next) =>{
+  try {
+    const query = req.query;
+    const products = await service.find(query);
 
-  res.json(products);
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+
 });
 
 router.get('/:id',
@@ -28,11 +36,15 @@ router.get('/:id',
 
 router.post('/',
   validatorhandler(createProductSchema,'body')
-  ,async (req, res) => {
- const body = req.body
- const newProduct = await service.create(body);
+  ,async (req, res,next) => {
+    try {
+      const body = req.body
+      const newProduct = await service.create(body);
 
- res.status(201).json({newProduct})
+      res.status(201).json({newProduct})
+    } catch (error) {
+      next(error);
+    }
 })
 
 router.patch('/:id',
