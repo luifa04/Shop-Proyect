@@ -56,16 +56,11 @@ class authService{
 
   async changePassword(token, newPassword){
     try {
-      console.log("kkega alservicio")
       const payload = jwt.verify(token, config.jwtSecret);
-      console.log("aca es el tema que no llega")
       const user = await service.findOne(payload.sub)
       if(user.recoveryToken !== token){
-        console.log("aca esta entrando")
         throw boom.unauthorized()
       }
-      console.log("!!!!!!!!!!!!!!!!!")
-      console.log(user)
       const hash = await bcrypt.hash(newPassword, 10)
       await service.update(user.id , {recoveryToken: null , password: hash})
       return {message: "your password was changed"}
