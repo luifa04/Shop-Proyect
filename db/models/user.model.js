@@ -1,4 +1,5 @@
 const {Model,DataTypes,Sequelize, ForeignKeyConstraintError} = require('sequelize')
+const bcrypt= require('bcrypt');
 
 const USER_TABLE = 'users';
 
@@ -24,6 +25,11 @@ const UserSchema = {
       min: 5,
       max: 20
     }
+  },
+  recoveryToken: {
+    field: 'recovery_token',
+    allowNull: true,
+    type: DataTypes.STRING
   },
   role: {
     allowNull: false,
@@ -52,6 +58,12 @@ class User extends Model{
       tableName: USER_TABLE,
       modelName: 'User',
       timestamps: false,
+      // hooks: {
+      //   beforeCreate: async (user, options) => {
+      //     const password = await bcrypt.hash(user.password, 10);
+      //     user.password = password;
+      //   },
+      // }
     }
   }
 }

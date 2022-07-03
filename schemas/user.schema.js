@@ -21,4 +21,8 @@ const getUserSchema = joi.object({
   id: id.required(),
 });
 
-module.exports = {getUserSchema, updateUserSchema, createUserSchema}
+const changePassword = joi.object({
+  password: password,
+})
+
+module.exports = {changePassword,getUserSchema, updateUserSchema, createUserSchema}

@@ -1,10 +1,9 @@
 const {Pool} = require('pg');
 const {config} = require('./../config/config')
 
-const options = {};
+const options = {connectionString : config.dbUrl};
 
 if(config.isProd){
-  options.connectionString = config.dbUrl;
   options.ssl = {
     rejectUnauthorized: false,
   }
