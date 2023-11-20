@@ -6,6 +6,16 @@ const {queryProductSchema,createProductSchema, updateProductSchema, getProductSc
 const router = express.Router();
 const service = new productsService();
 
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: Descripción breve de la ruta
+ *     description: Descripción más detallada de la ruta
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ */
 router.get('/',
   validatorhandler(queryProductSchema,'query')
   ,async (req,res,next) =>{

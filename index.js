@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors');
 const routerApi = require('./routers');
 const {logErrors, handler, boomHandler} = require('./middlewares/error.handler')
+const {swaggerDocs} = require('./routers/swagger');
 
 const app = express()
 const port = process.env.PORT || 3005
@@ -13,16 +14,10 @@ app.use(passport.initialize());
 
 app.use(express.json());
 
-
-app.get('/nueva', checkApiKey,(req, res,  next) => {
-  res.send('Hello World!')
-})
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
+  swaggerDocs(app)
 })
-
-
 
 
 //al dejar esto asi, queda una api publica
@@ -39,8 +34,6 @@ app.listen(port, () => {
 //   }
 // }
 // app.use(cors(options));
-
-
 
 routerApi(app);
 

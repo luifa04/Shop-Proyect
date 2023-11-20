@@ -7,7 +7,16 @@ const { changePassword } = require('../schemas/user.schema');
 const router = express.Router();
 const service = new AuthService;
 
-
+/**
+ * @swagger
+ * /login:
+ *   get:
+ *     summary: Login
+ *     description: Descripción más detallada de la ruta
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ */
 router.post('/login',
   passport.authenticate('local', {session: false})
    ,async (req, res,next) => {
