@@ -9,18 +9,33 @@ const service = new AuthService;
 
 /**
  * @swagger
- * /login:
- *   get:
- *     summary: Login
- *     description: Descripción más detallada de la ruta
+ * /auth/login:
+ *   post:
+ *     summary: Login User
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: User's email address
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 description: User's password
  *     responses:
- *       200:
- *         description: Respuesta exitosa
+ *       '201':
+ *         description: Logged in
  */
 router.post('/login',
   passport.authenticate('local', {session: false})
    ,async (req, res,next) => {
      try {
+      console.log(req.user)
        const user = req.user;
         res.json(service.singToken(user))
      } catch (error) {

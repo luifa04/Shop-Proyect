@@ -27,6 +27,16 @@ router.get('/:id',
   }
 });
 
+/**
+ * @swagger
+ * /users:
+ *      post:
+ *        summary: Creates a user.
+ *        tags: [Usuario]
+ *        responses:
+ *          '201':
+ *            description: Created
+*/
 router.post('/',
   validatorhandler(createUserSchema,'body')
   ,async (req, res,next) => {

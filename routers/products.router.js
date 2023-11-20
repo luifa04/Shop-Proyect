@@ -10,7 +10,7 @@ const service = new productsService();
  * @swagger
  * /products:
  *   get:
- *     summary: Descripción breve de la ruta
+ *     summary: Devuelve todos los productos
  *     description: Descripción más detallada de la ruta
  *     responses:
  *       200:
@@ -30,6 +30,23 @@ router.get('/',
 
 });
 
+/**
+ * @swagger
+ * /products/{id}:
+ *   get:
+ *     summary: Devuelve producto por ID
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *       400:
+ *         description: Bad request. Producto ID tiene que ser un numero.
+ *       401:
+ *         description: Authorization information is missing or invalid.
+ *       404:
+ *         description: no hay productos con ese ID.
+ *       5XX:
+ *         description: Unexpected error.
+ */
 router.get('/:id',
   validatorhandler(getProductSchema,'params'),
   async (req,res,next) =>{
