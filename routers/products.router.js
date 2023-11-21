@@ -35,6 +35,13 @@ router.get('/',
  * /products/{id}:
  *   get:
  *     summary: Devuelve producto por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del producto
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: Respuesta exitosa
@@ -43,7 +50,7 @@ router.get('/',
  *       401:
  *         description: Authorization information is missing or invalid.
  *       404:
- *         description: no hay productos con ese ID.
+ *         description: No hay productos con ese ID.
  *       5XX:
  *         description: Unexpected error.
  */
