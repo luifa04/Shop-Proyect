@@ -2,7 +2,8 @@ const express = require('express')
 const cors = require('cors');
 const routerApi = require('./routers');
 const {logErrors, handler, boomHandler} = require('./middlewares/error.handler')
-const {swaggerDocs} = require('./routers/swagger');
+const swaggerDocs = require('./routers/swagger');
+const path = require('path');
 
 const app = express()
 const port = process.env.PORT || 3005
@@ -13,6 +14,13 @@ const passport = require('passport');
 app.use(passport.initialize());
 
 app.use(express.json());
+
+
+app.use(express.static(path.join(__dirname)));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

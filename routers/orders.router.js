@@ -12,6 +12,28 @@ router.get('/',async (req,res) =>{
    res.json(orders);
  });
 
+ /**
+ * @swagger
+ * /orders/{id}:
+ *   get:
+ *     summary: Obtener un pedido por ID
+ *     description: Obtiene información detallada de un pedido por su ID.
+ *     tags:
+ *       - Orders
+ *     security: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del pedido
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Detalles del pedido obtenidos exitosamente.
+ *       404:
+ *         description: Pedido no encontrado.
+ */
  router.get('/:id',
    validatorhandler(getOrderSchema,'params'),
    async (req,res,next) =>{
@@ -26,6 +48,27 @@ router.get('/',async (req,res) =>{
    }
  });
 
+ /**
+ * @swagger
+ * /orders:
+ *   post:
+ *     summary: Crear un nuevo pedido
+ *     description: Crea un nuevo pedido.
+ *     tags:
+ *       - Orders
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Order'  # Reemplaza con la referencia al esquema de tu pedido
+ *     responses:
+ *       201:
+ *         description: Pedido creado exitosamente.
+ *       400:
+ *         description: Datos de entrada incorrectos o incompletos.
+ */
  router.post('/',
    validatorhandler(createOrderSchema,'body')
    ,async (req, res,next) => {
@@ -40,19 +83,28 @@ router.get('/',async (req,res) =>{
 
  })
 
-//  router.patch('/:id',
-//    validatorhandler(getUserSchema,'params'),
-//    validatorhandler(updateUserSchema,'body')
-//    ,async (req, res,next)=>{
-//      try {
-//        const body = req.body;
-//        const {id}= req.params;
-//        res.json(await service.update(id,body));
-//      } catch (error) {
-//       next(error)
-//      }
-//  })
-
+/**
+ * @swagger
+ * /orders/{id}:
+ *   delete:
+ *     summary: Eliminar un pedido por ID
+ *     description: Elimina un pedido por su ID.
+ *     tags:
+ *       - Orders
+ *     security: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del pedido a eliminar
+ *         schema:
+ *           type: string
+ *     responses:
+ *       201:
+ *         description: Pedido eliminado exitosamente.
+ *       404:
+ *         description: Pedido no encontrado.
+ */
  router.delete('/:id',
    validatorhandler(getOrderSchema,'params'),
    async (req, res,next)=>{
