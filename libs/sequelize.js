@@ -7,14 +7,14 @@ const options= {
   dialect: 'postgres',
   logging: config.isProd ? false : true,
 }
-/*
+
 if(config.isProd ){
   options.dialectOptions = {
      ssl: {
        rejectUnauthorized: false,
      }
   }
-}*/
+}
 
 // descomentar lo de arriba para deployar
 
