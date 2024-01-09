@@ -1,0 +1,3 @@
+[build]
+  command = "npm run build"  # O el comando necesario para construir tu documentación
+  publish = "dist"           # Directorio donde se encuentra la documentación construida

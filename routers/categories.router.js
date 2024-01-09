@@ -42,7 +42,7 @@ router.get('/'
 
  /**
  * @swagger
- * /categorias/{id}:
+ * /categories/{id}:
  *   get:
  *     summary: Obtener una categoría por ID
  *     description: Obtiene información detallada de una categoría por su ID.
@@ -79,7 +79,7 @@ router.get('/'
 
  /**
  * @swagger
- * /categorias:
+ * /categories:
  *   post:
  *     summary: Crear una nueva categoría
  *     description: Crea una nueva categoría. Requiere autenticación JWT y rol de administrador.
@@ -120,7 +120,7 @@ router.get('/'
 
 /**
  * @swagger
- * /categorias/{id}:
+ * /categories/{id}:
  *   patch:
  *     summary: Actualizar una categoría por ID
  *     description: Actualiza información de una categoría por su ID.
@@ -164,7 +164,7 @@ router.get('/'
 
  /**
  * @swagger
- * /categorias/{id}:
+ * /categories/{id}:
  *   delete:
  *     summary: Eliminar una categoría por ID
  *     description: Elimina una categoría por su ID.
