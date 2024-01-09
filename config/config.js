@@ -9,7 +9,7 @@ const config = {
   dbHost: process.env.DB_HOST,
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
-  dbUrl: process.env.DATABASE_URL || 'postgres://admin:admin123@localhost:5432/my_store',
+  dbUrl: 'postgres://admin:admin123@localhost:5432/my_store',
   apikey: process.env.APIKEY,
   jwtSecret: process.env.JWT_SECRET || K4M5N7Q8R9SBUCVDXFYGZJ3K4M6P7Q8SATBUDWEXFZH2J3M5N6P8R9SATC,
   email: process.env.EMAIL,
