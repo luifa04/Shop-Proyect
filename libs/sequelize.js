@@ -25,6 +25,6 @@ const sequelize = new Sequelize(config.dbUrl,options);
 setupModels(sequelize);
 
 //sincroniza para crear las tablas.
-// sequelize.sync();
+//sequelize.sync();
 
 module.exports = sequelize;
