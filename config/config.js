@@ -11,7 +11,7 @@ const config = {
   dbPort: '50013',
   dbUrl: 'postgresql://usmuelidzbdtlxba9jgq:TQ4m1ga8W3cH2BOJ17W8ubdaVoItvT@blncsofcmyhuzgxozhwq-postgresql.services.clever-cloud.com:50013/blncsofcmyhuzgxozhwq',
   apikey: 12345,
-  jwtSecret: process.env.JWT_SECRET || K4M5N7Q8R9SBUCVDXFYGZJ3K4M6P7Q8SATBUDWEXFZH2J3M5N6P8R9SATC,
+  jwtSecret: process.env.JWT_SECRET,
   email: process.env.EMAIL,
   passwordEmail: process.env.PASSWORD_EMAIL
 }
